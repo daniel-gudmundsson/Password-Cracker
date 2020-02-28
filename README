@@ -1,0 +1,20 @@
+CRACKER
+=======
+
+crack.py		Brýtur lykilorð
+hash.py			Býr til lykilorðaskrá
+rainbow.py		Býr til regnbogatöflu
+
+lib/hashfn.py		Hash library
+
+test.sh			Skeljaskript sem prófar afkóðun
+
+users.md5		Lykilorðaskrár án salts
+users.sha1
+users.sha256
+
+users_salted.md5	Lykilorðaskrár með salti
+users_salted.sha1
+users_salted.sha256
+
+passwords.txt		Listi af þekktum lykilorðum
