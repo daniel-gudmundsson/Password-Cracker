@@ -38,3 +38,4 @@ def verify(s, hash):
 	v = v[v.rfind("$",1)+1:]
 	return v==hash
 
+#print(hash_pw('password'))

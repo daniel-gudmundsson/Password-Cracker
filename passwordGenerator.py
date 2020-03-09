@@ -4,7 +4,9 @@ import base64
 import re
 import argparse
 import itertools
+import time
 
+start_time = time.time()
 
 def leet(passwords):
     for pw in passwords:
@@ -22,20 +24,40 @@ def symbol(passwords):
             passwordsAll.append(pw+s)
 
 
-def random(passwords):
-    lsts = [symbols, symbols, symbols, symbols]
+def random2(passwords, n):
+    lsts = []
+    for i in range(n):
+        lsts.append(symbols)
+#    lsts = [symbols, symbols, symbols, symbols]
 #    lsts.append(symbols)
-    new = []
     new = list(map(lambda x: "".join(x), list(itertools.product(*lsts))))
+    
     passwordsAll.extend(new)
+
+def random(passwords, base, n):
+    if base ==[]:
+        lsts = []
+        for i in range(n):
+            lsts.append(symbols)
+    #    lsts = [symbols, symbols, symbols, symbols]
+    #    lsts.append(symbols)
+        new = list(map(lambda x: "".join(x), list(itertools.product(*lsts))))
+    else:
+        lsts = [base, symbols]
+        new = list(map(lambda x: "".join(x), list(itertools.product(*lsts))))
+        
+    passwordsAll.extend(new)
+    return new
     
 parser = argparse.ArgumentParser('Crack some passwords')
-parser.add_argument('-f', '--password-file', help="A file of hashed passwords", dest="passhashfile")
-parser.add_argument('-o', '--output-file', help="The cracked passwords", dest="output")
+parser.add_argument('passwords', help="A file of hashed passwords")
+parser.add_argument('output', help="The cracked passwords")
+parser.add_argument('-r', '--random' ,action="store_true",dest="random")
 args = parser.parse_args()
 
-password_file = args.passhashfile
+password_file = args.passwords
 output = args.output
+r = args.random
 
 symbols = list("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1#$%&*?")
 passwords = []
@@ -49,7 +71,9 @@ passwordsAll = list(passwords)
 
 leet(passwords)
 symbol(passwords)
-random(passwords)
+if r:   
+    base4 = random(passwords, [], 4)
+#base5 = random(passwords, base4, 5)
 with open(output, "w") as f_out:
     for pw in passwordsAll:
 #        passwordList.append[pw]
@@ -57,6 +81,7 @@ with open(output, "w") as f_out:
 #random(passwords)
 
 
+print("Finished in %s seconds" % (time.time() - start_time))
 
 
 

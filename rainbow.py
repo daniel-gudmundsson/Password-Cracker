@@ -1,6 +1,8 @@
 import os
 import argparse
 from lib.hashfn import hash_pw
+import time
+start_time = time.time()
 
 def to_rainbow(passwords, rainbow, algo):
 	if not algo in ["md5","sha1","sha256"]:
@@ -40,3 +42,4 @@ if withsalt:
     to_rainbow_withsalt(passwords, rainbow, algo)
 else:
     to_rainbow(passwords, rainbow, algo)
+print("Finished in %s seconds" % (time.time() - start_time))
