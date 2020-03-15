@@ -31,12 +31,47 @@ class Cracker():
         print("\n Cracker")
         print("Algorithm:")
     
-    
+    def bruteForceSingle(self, userhash):
+        
+        """
+            Brute forces a single password
+        """
+        stringList = [-1]*self.maxBruteForceLength
+        stringList[0] = 0
+        user, passhash = self.__split_user(userhash)
+        algo, salt, pwhash  = self.__split_hash(passhash)
+        while True:
+            
+            if salt is None: ## No salt
+                word = self.convertToWord(stringList)
+                hash = hash_pw(word, algo = algo)
+                if word == 'p':
+                    print(hash_pw('p'))
+                    print(passhash)
+                if hash == passhash:
+                    return user, word, 1, 1
+            else:
+                word = self.convertToWord(stringList)
+                hash = hash_pw(word, algo = algo, salt = salt, useSalt=True)
+                if hash == passhash:
+                    return user, word, 1, 1
+                     
+            if sum(stringList) == len(stringList) * 68:
+                break
+            
+            stringList = self.incrementList(stringList)
+        
+        return None, None, None, None
+        
+        
     def crack(self, userhash = None, hashfile = None, output = None, brute = False):
         if not userhash and not hashfile:
             raise Exception("Nothing to crack!")
         if userhash:
-            return self.__crack_single(userhash)
+            user, pw,_,_ = self.__crack_single(userhash)
+            if pw is None:
+                user, pw, _, _ = self.bruteForceSingle(userhash)
+            return user, pw, None, None
         else:
             return self.__crack_file(hashfile, output, brute)
     
@@ -238,13 +273,17 @@ args = parser.parse_args()
                 
                 
 passhash = args.passhash
+print(passhash)
 passhashfile = args.passhashfile
 output = args.output
 rainbow = args.rainbow
 algo = args.algo
 brute = args.brute
-min_brute = int(args.min)
-max_brute = int(args.max)
+min_brute = args.min
+max_brute = args.max
+if args.min:
+    min_brute = int(args.min)
+    max_brute = int(args.max)
 
 if not algo: algo = "md5"
 #if not method and rainbow: method="rainbow"
@@ -254,26 +293,27 @@ if not algo: algo = "md5"
 c = Cracker(rainbow=rainbow, algo=algo, min_brute = min_brute, max_brute = max_brute)          
                 
 ### Start by reading in the passwords file and create a dictonary that maps a hash to a user
-with open(passhashfile, "r") as f:
-    for l in f:
-        l = l.strip(" \r\n")
-        l = l.split('$')
-#        print(l)
-        if len(l) == 4: # Has salt
-            user, algo, salt, pw = l
-            user.strip(':')
-            c.salt.append(salt)
-            res = "$%s$" % algo
-            res += salt + "$"
-            res+=pw
-            c.passwords[res] = user
-        else:
-            user, algo, pw = l
-            user.strip(':')
-            res = "$%s$" % algo
-            res+=pw
-            c.passwords[res] = user
-        c.numPasswords+=1   
+if passhashfile:
+    with open(passhashfile, "r") as f:
+        for l in f:
+            l = l.strip(" \r\n")
+            l = l.split('$')
+    #        print(l)
+            if len(l) == 4: # Has salt
+                user, algo, salt, pw = l
+                user.strip(':')
+                c.salt.append(salt)
+                res = "$%s$" % algo
+                res += salt + "$"
+                res+=pw
+                c.passwords[res] = user
+            else:
+                user, algo, pw = l
+                user.strip(':')
+                res = "$%s$" % algo
+                res+=pw
+                c.passwords[res] = user
+            c.numPasswords+=1   
 
 if args.info:                
     c.info()
@@ -294,8 +334,7 @@ print("Finished in %s seconds" % (time.time() - start_time))
                 
                 
                 
-                
-                
+
                 
                 
                 
