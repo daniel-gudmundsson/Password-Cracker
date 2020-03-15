@@ -13,7 +13,15 @@ def to_rainbow(passwords, rainbow, algo):
 				l = l.strip(" \r\n")
 				if not l or len(l)==0: continue
 				f_out.write("%s:%s\n" % (hash_pw(l, algo=algo), l))
+
+
+"""
+A slight modification to the function above so we can use already determined salt
+NOTE: This is not a good way of coding, but since they rainbow tables have already been made
+we dare not mess around with it more. As long as it works right?
+"""
 def to_rainbow_withsalt(passwords, rainbow, algo):
+   
 	if not algo in ["md5","sha1","sha256"]:
 		raise Exception("Invalid algorithm '%s'" % algo)
 	with open(passwords, "r") as f_in:

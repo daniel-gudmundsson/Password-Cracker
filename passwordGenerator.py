@@ -9,6 +9,9 @@ import time
 start_time = time.time()
 
 def leet(passwords):
+    """
+        Converges a password to leetspeak
+    """
     for pw in passwords:
         pw = pw.replace("o","0")
         pw = pw.replace("l","1")
@@ -19,22 +22,21 @@ def leet(passwords):
 
 
 def symbol(passwords):
+    """
+        Adds a symbol as a suffix to the passwords
+    """
     for pw in passwords:
         for s in symbols:
             passwordsAll.append(pw+s)
 
-
-def random2(passwords, n):
-    lsts = []
-    for i in range(n):
-        lsts.append(symbols)
-#    lsts = [symbols, symbols, symbols, symbols]
-#    lsts.append(symbols)
-    new = list(map(lambda x: "".join(x), list(itertools.product(*lsts))))
-    
-    passwordsAll.extend(new)
-
 def random(passwords, base, n):
+    """
+    Generates random words. 
+    n is the length of the words
+    If a base is given then that base can be used in the calculation for random
+    strings of one letter longer. If base is all the possible 4 letter words than it
+    can be used to genearte five letter words in less time.
+    """
     if base ==[]:
         lsts = []
         for i in range(n):
@@ -63,7 +65,6 @@ symbols = list("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1#
 passwords = []
 with open(password_file, "r") as f_in:
     for pw in f_in:
-#        passwordList.append[pw]
         pw = pw.strip(" \r\n")
         passwords.append(pw)
 
@@ -71,14 +72,12 @@ passwordsAll = list(passwords)
 
 leet(passwords)
 symbol(passwords)
-if r:   
+if r:    ### If we want random words.
     base4 = random(passwords, [], 4)
-#base5 = random(passwords, base4, 5)
+#base5 = random(passwords, base4, 5) ### To slow and not enough memory to execute this line
 with open(output, "w") as f_out:
     for pw in passwordsAll:
-#        passwordList.append[pw]
         f_out.write("%s\n" % pw)
-#random(passwords)
 
 
 print("Finished in %s seconds" % (time.time() - start_time))

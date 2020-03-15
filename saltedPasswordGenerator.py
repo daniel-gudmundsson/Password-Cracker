@@ -9,6 +9,9 @@ import time
 start_time = time.time()
 
 def extractSalt(saltedHash):
+    """
+        Extracts the salt from a list of salted hashes
+    """
     salts = []
     for s in saltedHash:
         salts.append(s.split('$')[2])
