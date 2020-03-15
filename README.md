@@ -1,5 +1,18 @@
-CRACKER
+CRACKER3000
 =======
+
+Höfundar:
+Daníel Þór Guðmundsson dthg7@hi.is
+Agnar Pétursson agp11@hi.is
+
+í þessu verkefni fáum við að kynnast "lykilorða brjótara". Cracker-inn getur brotið bæði söltuð og ósöltuð lykilorð fyrir 3 tegundir af höshum: md5, sha1, sha256. Hugbúnaðurinn notast við regnbogatöflur og brute force aðferðir. 
+
+Tilgangur verkefnisins er að kynnast betur þeim aðferðum sem notaðar eru til að brjóta lykilorð og reyna að útfæra þær á eigin spýtur. Við fáum að kynnast hvernig mismunandi hash algóritmar hafa áhrif á flækjustig lykilorða. Einnig fáum við að sjá hvernig það að bæta við salti getur reynst öflug aðferð þegar það kemur að því að auka öryggi lykilorða.
+
+Við höfum fengið gefnar 6 skrár sem innihalda höshuð lykilorða. Fyrir hvern algóritma höfum við eina saltaða skrá og eina ósaltaða skrá. Markmiðið er að reyna að brjóta sem flest lykilorð í þessum skrám.
+
+Þetta verkefni er partur áfanganum Öryggi Tölvukerfa (HBV602M) í Háskóla Íslands. 
+
 
 cracker.py		Brýtur lykilorð
 hash.py			Býr til lykilorðaskrá
@@ -19,6 +32,7 @@ users_salted.sha256
 
 passwords.txt		Listi af þekktum lykilorðum
 
+Requires python3
 
 # Programs:
 
