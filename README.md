@@ -1,7 +1,7 @@
 CRACKER
 =======
 
-crack.py		Brýtur lykilorð
+cracker.py		Brýtur lykilorð
 hash.py			Býr til lykilorðaskrá
 rainbow.py		Býr til regnbogatöflu
 
@@ -18,3 +18,8 @@ users_salted.sha1
 users_salted.sha256
 
 passwords.txt		Listi af þekktum lykilorðum
+
+
+
+
+
