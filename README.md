@@ -89,6 +89,24 @@ Example: python3 passwordGenerator.py passwords.txt passwordsAll.txt -r
 * python3 cracker.py -f users_salted.sha1 -r sha1_salted.rainbow -o users_salted_sha1.out -b -m 4 -n 4
 * python3 cracker.py -f users_salted.sha256 -r sha256_salted.rainbow -o users_salted_sha256.out -b -m 4 -n 4
 
+# Setting up Virtualenv
+
+Set up
+sudo apt-get install virtualenv
+
+Make a new directory
+mkdir cracker
+cd cracker
+virtualenv -p python3 VENV
+
+Activate VENV
+source VENV/bin/activate
+
+There are no packages that are required to run this software
+
+To exit VENV
+deactivate
+
 
 
 
