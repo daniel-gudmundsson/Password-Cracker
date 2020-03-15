@@ -102,7 +102,8 @@ virtualenv -p python3 VENV
 Activate VENV
 source VENV/bin/activate
 
-There are no packages that are required to run this software
+Install requirements
+pip install -r requirements.txt
 
 To exit VENV
 deactivate
